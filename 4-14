@@ -1,0 +1,42 @@
+#include <cstdio>
+#include "UNR_GPIO_BCM2711.h"
+#include <chrono>
+#include <thread>
+int main()
+{
+	int button = 3;
+	int ledPIN = 2; 
+	int valDetect;
+
+    printf("hello from Classwork_4_14!\n");
+	setup();
+	setup_gpio(button, INPUT, PUD_UP);
+	setup_gpio(ledPIN, OUTPUT, PUD_UP);
+	while (1)
+	{
+		valDetect = input_gpio(button);
+
+		if (valDetect)
+		{
+			output_gpio(ledPIN, HIGH);
+		
+		}
+		else {
+			output_gpio(ledPIN, LOW);
+			
+		}
+	}
+		/*for (int i = 0; i < 10; i++)
+		{
+			output_gpio(ledPIN, HIGH);
+
+			std::this_thread::sleep_for(std::chrono::milliseconds(200));
+			output_gpio(ledPIN, LOW);
+			std::this_thread::sleep_for(std::chrono::milliseconds(200));
+
+		}
+		*/
+	cleanup();
+    return 0;
+}
+
